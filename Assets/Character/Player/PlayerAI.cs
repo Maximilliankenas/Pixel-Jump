@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerAI : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private PlayerSprite playerSprite;
     [SerializeField] private StateController stateController;
     [SerializeField] private GroundCheck groundCheck;
     [SerializeField] private PlayerInput playerInput;
@@ -25,6 +26,7 @@ public class PlayerAI : MonoBehaviour
         else if(currentStateKey == "walk")
         {
             walkState.direction = Math.Sign(playerInput.walkInput);
+            playerSprite.UpdateFacingDirection(Math.Sign(playerInput.walkInput));
             if(playerInput.walkInput == 0.0f) ChangeIdle();
             else if(playerInput.jumpInput && groundCheck.isOnGround) ChangeJump();
             else if(!groundCheck.isOnGround) ChangeFall();
@@ -32,11 +34,13 @@ public class PlayerAI : MonoBehaviour
         else if(currentStateKey == "jump")
         {
             jumpState.direction = Math.Sign(playerInput.walkInput);
+            playerSprite.UpdateFacingDirection(Math.Sign(playerInput.walkInput));
             if(rb.linearVelocityY < 0) ChangeFall();
         }
         else if(currentStateKey == "fall")
         {
             fallState.direction = Math.Sign(playerInput.walkInput);
+            playerSprite.UpdateFacingDirection(Math.Sign(playerInput.walkInput));
             if(groundCheck.isOnGround) ChangeIdle();
         }
     }
@@ -44,12 +48,16 @@ public class PlayerAI : MonoBehaviour
     private void ChangeIdle()
     {
         stateController.ChangeState("idle");
+        playerSprite.UpdateWalking(false);
+        playerSprite.UpdateMidair(false);
     }
 
     private void ChangeWalk()
     {
         walkState.speed = playerData.walkSpeed;
         stateController.ChangeState("walk");
+        playerSprite.UpdateWalking(true);
+        playerSprite.UpdateMidair(false);
     }
 
     private void ChangeJump()
@@ -57,11 +65,15 @@ public class PlayerAI : MonoBehaviour
         jumpState.speed = playerData.walkSpeed;
         jumpState.jumpSpeed = playerData.jumpSpeed;
         stateController.ChangeState("jump");
+        playerSprite.UpdateWalking(false);
+        playerSprite.UpdateMidair(true);
     }
 
     private void ChangeFall()
     {
         fallState.speed = playerData.walkSpeed;
         stateController.ChangeState("fall");
+        playerSprite.UpdateWalking(false);
+        playerSprite.UpdateMidair(true);
     }
 }
