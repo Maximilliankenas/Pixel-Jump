@@ -396,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca7be1ff4cf1ec4baae02a62b0792c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtSFX: {fileID: 8300000, guid: 4f2a4e4a3290d0147843a6b459a0cc75, type: 3}
 --- !u!114 &2212721802085563435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateKey: walk
   rb: {fileID: 3800827208830195916}
+  walkSFX: {fileID: 8300000, guid: 913d7b81d5c9ae44e9dc7de253ee76b1, type: 3}
+  walkSFXPerSecond: 4
   speed: 0
   direction: 0
 --- !u!114 &3167191427232121154
@@ -528,6 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateKey: jump
   rb: {fileID: 3800827208830195916}
+  jumpSFX: {fileID: 8300000, guid: 162c9cbfae0586c4681ea77a9801e72b, type: 3}
   speed: 0
   direction: 0
   jumpSpeed: 0

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,5 +42,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player win");
         score = 100 - (int)timer;
         isGameRunning = false;
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
